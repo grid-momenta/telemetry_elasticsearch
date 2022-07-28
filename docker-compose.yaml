@@ -1,6 +1,28 @@
 version: '3.8'
 
 services:
+  search_guard:
+    image: floragunncom/sgdemo
+    container_name: te_search_guard
+    ports:
+      - "9210:9200"
+      - "5610:5601"
+    # volumes:
+      #   - /opt/sgdemo/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      #   - /opt/sgdemo/config/log4j2.properties:/usr/share/elasticsearch/config/log4j2.properties
+      #   - /opt/sgdemo/config/sgdemo.yml:/usr/share/sgdemo/sgdemo.yml
+      #   - /opt/sgdemo/config/sgdemo-secrets.yml:/usr/share/sgdemo/sgdemo-secrets.yml
+      #   - /opt/sgdemo/config/sgdemo-users.yml:/usr/share/sgdemo/sgdemo-users.yml
+      #   - /opt/sgdemo/config/sgdemo-roles.yml:/usr/share/sgdemo/sgdemo-roles.yml
+      #   - /opt/sgdemo/config/sgdemo-privileges.yml:/usr/share/sgdemo/sgdemo-privileges.yml
+      #   - /opt/sgdemo/config/sgdemo-permissions.yml:/usr/share/sgdemo/sgdemo-permissions.yml
+      #   - /opt/sgdemo/config/sgdemo-indices.yml:/usr/share/sgdemo/sgdemo-indices.yml
+      #   - /opt/sgdemo/config/sgdemo-templates.yml:/usr/share/sgdemo/sgdemo-templates.yml
+      #   - /opt/sgdemo/config/sgdemo-mappings.yml:/usr/share/sgdemo/sgdemo-mappings.yml
+      #   - /opt/sgdemo/config/sgdemo-settings.yml:/usr/share/sgdemo/sgdemo-settings.yml
+    networks:
+      - telemetry_elasticsearch
+
   elasticsearch:
     build:
       context: compose/elasticsearch
