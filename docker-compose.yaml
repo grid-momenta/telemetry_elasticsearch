@@ -60,6 +60,10 @@ services:
       - "9600:9600"
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+      ELASTIC_DEFAULT_USER: ${ELASTIC_DEFAULT_USER:-}
+      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD:-}
+      ELASTIC_HOST: ${ELASTIC_HOST:-}
+      LOGSTASH_PORT: ${LOGSTASH_PORT:-}
     networks:
       - telemetry_elasticsearch
     depends_on:
@@ -75,6 +79,10 @@ services:
       - ./compose/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
     ports:
       - "5601:5601"
+    environment:
+      KIBANA_CUSTOM_USER: ${KIBANA_CUSTOM_USER:-}
+      KIBANA_SYSTEM_PASSWORD: ${KIBANA_SYSTEM_PASSWORD:-}
+      ELASTIC_HOST: ${ELASTIC_HOST:-}
     networks:
       - telemetry_elasticsearch
     depends_on:
