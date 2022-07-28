@@ -22,6 +22,27 @@ services:
     networks:
       - telemetry_elasticsearch
 
+  logstash:
+    build:
+      context: compose/logstash
+      args:
+        ELK_VERSION: $ELK_VERSION
+    container_name: te_logstash
+    volumes:
+      - ./compose/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+      - ./compose/logstash/pipeline:/usr/share/logstash/pipeline:ro
+    ports:
+      - "5000:5000/tcp"
+      - "5044:5044/tcp"
+      - "5000:5000/udp"
+      - "9600:9600"
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+      - telemetry_elasticsearch
+    depends_on:
+      - elasticsearch
+
 networks:
   telemetry_elasticsearch:
     driver: bridge
